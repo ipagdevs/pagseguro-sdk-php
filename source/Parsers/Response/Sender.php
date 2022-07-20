@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2016 [PagSeguro Internet Ltda.]
  *
@@ -61,10 +62,20 @@ trait Sender
         }
 
         $senderClass = new \PagSeguro\Domains\Sender();
-        $this->sender = $senderClass->setName(current($sender->name))
-            ->setEmail(current($sender->email))
+
+        if (isset($sender->name)) {
+            $senderClass->setName(current($sender->name));
+        }
+
+        if (isset($sender->email)) {
+            $senderClass->setEmail(current($sender->email));
+        }
+
+        $senderClass
             ->setPhone($phone)
             ->setDocuments(new Document());
+
+        $this->sender = $senderClass;
 
         return $this;
     }
